@@ -5,22 +5,18 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       </head>
     <body>
-        <form action="../../Controllers/ProductController.php" method="post">
+        <form action="../../Controllers/OrderController.php" method="post">
             <div class="form-group">
-              <label for="name">Product Name</label>
-              <input type="text" name="name" class="form-control" id="nameId" placeholder="Enter Product Name">
+              <label for="orderDate">Order Date</label>
+              <input type="date" name="orderDate" class="form-control" id="orderDateId">
             </div>
             <div class="form-group">
-              <label for="price">Product Price</label>
+              <label for="amount">Order Total</label>
               <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
-              <input type="text" name="price" class="form-control" id="priceId" placeholder="0.00">
+              <input type="text" name="amount" class="form-control" id="amountId" placeholder="0.00">
             </div>
             </div>
-            <div class="form-group">
-                <label for="quantity">Quantity</label>
-                <input type="number" name="quantity" class="form-control" id="quantityId" placeholder="0">
-              </div>
             <div class="form-group">
               <input type="hidden" name="controllerMethod" class="form-control" id="controller" value="create">
             </div>
@@ -29,9 +25,7 @@
     </body>
     <script>
       window.onload = function() {
-        document.getElementById('nameId').value = '';
-        document.getElementById('priceId').value = '0.00';
-        document.getElementById('quantityId').value = '0';
+        document.getElementById('amountId').value = '0.00';
       }
     </script>
 </html>
