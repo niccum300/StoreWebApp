@@ -30,7 +30,8 @@ CREATE TABLE Orders(
 
 CREATE TABLE Customers(
 	Id int NOT NULL AUTO_INCREMENT,
-    Name VARCHAR(50),
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
     Address VARCHAR(50),
     PRIMARY KEY(Id)
 );
