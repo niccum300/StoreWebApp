@@ -15,7 +15,7 @@
             
             <li class="nav-item"><a class="nav-link" href="../ProductViews/Index.php" style="color:#fff">Products</a></li>
 
-            <li class="nav-item"><a class="nav-link" href="OrderViews/Index.php" style="color:#fff">Orders</a></li>
+            <li class="nav-item"><a class="nav-link" href="Index.php" style="color:#fff">Orders</a></li>
 
             <li class="nav-item"><a class="nav-link" href="../EmployeeViews/Index.php" style="color:#fff">Employees</a></li>
 

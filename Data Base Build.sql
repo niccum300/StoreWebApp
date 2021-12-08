@@ -83,3 +83,36 @@ CREATE TABLE Employee_Order(
     FOREIGN KEY(EmployeeId) REFERENCES employees(Id) ON DELETE CASCADE,
     FOREIGN KEY(OrderId) REFERENCES orders(Id) ON DELETE CASCADE
 );
+
+-- addOrder Procedure
+DELIMITER $$
+CREATE  PROCEDURE `addOrder`(IN `orderDate` DATE, IN `amount` DECIMAL(10,2), IN `customerId` INT, IN `employeeId` INT, IN `productId` INT)
+BEGIN
+	DECLARE orderId INT DEFAULT 0;
+    
+    select Max(Id)
+    into orderId
+    from orders;
+    
+    insert into customer_order
+    VALUES(customerId, orderId);
+    
+    insert into employee_order
+    VALUES(employeeId, orderId);
+    
+    insert into order_product
+    VALUES(orderId, productId);
+    
+    
+END$$
+DELIMITER ;
+
+-- select order details
+select DISTINCT orders.OrderDate, orders.Amount, customers.FirstName, customers.LastName, employees.FirstName AS EmpFirstName, employees.LastName As EmpLastName, products.Name
+from orders inner join customer_order ON orders.Id = customer_order.OrderId
+inner join customers on customers.Id = customer_order.CustomerId
+inner join employee_order ON orders.Id = employee_order.OrderId
+INNER JOIN employees ON employee_order.EmployeeId = employees.Id
+INNER join order_product on order_product.OrderId = orders.Id
+inner JOIN products on order_product.ProductId = products.Id
+where orders.Id = 18;

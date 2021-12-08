@@ -29,7 +29,7 @@
             <a class="navbar-brand" href="../index.html">Store Database</a>
         </div>
         <ul class="nav">
-            <li class="nav-item"><a class="nav-link" href="StoreViews/Index.php" style="color:#fff">Stores</a></li>
+            <li class="nav-item"><a class="nav-link" href="Index.php" style="color:#fff">Stores</a></li>
             
             <li class="nav-item"><a class="nav-link" href="../ProductViews/Index.php" style="color:#fff">Products</a></li>
 

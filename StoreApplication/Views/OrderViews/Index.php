@@ -33,7 +33,7 @@
             
             <li class="nav-item"><a class="nav-link" href="../ProductViews/Index.php" style="color:#fff">Products</a></li>
 
-            <li class="nav-item"><a class="nav-link" href="OrderViews/Index.php" style="color:#fff">Orders</a></li>
+            <li class="nav-item"><a class="nav-link" href="Index.php" style="color:#fff">Orders</a></li>
 
             <li class="nav-item"><a class="nav-link" href="../EmployeeViews/Index.php" style="color:#fff">Employees</a></li>
 
@@ -65,6 +65,9 @@
                         <th scope="col">Id</th>
                         <th scope="col">Order Date</th>
                         <th scope="col">Total Cost $</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Emmployee Name </th>
+                        <th scope="col">Product Name</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,9 +84,23 @@
                         
                         if($searchParameter == "")
                         {
-                            $sql = "Select * from orders;";
+                            $sql = "select DISTINCT orders.Id, orders.OrderDate, orders.Amount, customers.FirstName, customers.LastName, employees.FirstName AS EmpFirstName, employees.LastName As EmpLastName, products.Name
+                            from orders inner join customer_order ON orders.Id = customer_order.OrderId
+                            inner join customers on customers.Id = customer_order.CustomerId
+                            inner join employee_order ON orders.Id = employee_order.OrderId
+                            INNER JOIN employees ON employee_order.EmployeeId = employees.Id
+                            INNER join order_product on order_product.OrderId = orders.Id
+                            inner JOIN products on order_product.ProductId = products.Id;";
                         }else{
-                            $sql = "Select * from orders where OrderDate = '$searchParameter' OR TotalCost =  $searchParameter; ";
+                            $sql = "select DISTINCT orders.Id, orders.OrderDate, orders.Amount, customers.FirstName, customers.LastName, employees.FirstName AS EmpFirstName, employees.LastName As EmpLastName, products.Name
+                            from orders inner join customer_order ON orders.Id = customer_order.OrderId
+                            inner join customers on customers.Id = customer_order.CustomerId
+                            inner join employee_order ON orders.Id = employee_order.OrderId
+                            INNER JOIN employees ON employee_order.EmployeeId = employees.Id
+                            INNER join order_product on order_product.OrderId = orders.Id
+                            inner JOIN products on order_product.ProductId = products.Id
+                            where orders.Id = $searchParameter OR orders.OrderDate = '$searchParameter' OR orders.Amount =$searchParameter 
+                            or customers.FirstName = '$searchParameter' or customers.LastName = '$searchParameter' ";
                         }
 
 
@@ -100,6 +117,9 @@
                                     echo "<td>" .$row["Id"]. "</td>";
                                     echo "<td>" .$row["OrderDate"]. "</td>";
                                     echo "<td>" .$row["Amount"]. "</td>";
+                                    echo "<td>" .$row["FirstName"]. " ".$row["LastName"]. "</td>";
+                                    echo "<td>" .$row["EmpFirstName"]. " ".$row["EmpLastName"]. "</td>";
+                                    echo "<td>" .$row["Name"]. "</td>";
                                     echo "</tr>";
                                     
 
@@ -119,7 +139,7 @@
             </table>
         </div> 
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Order</h5>
@@ -132,6 +152,90 @@
             <div class="form-group">
               <label for="orderDate">Order Date</label>
               <input type="date" name="orderDate" class="form-control" id="orderDateId">
+            </div>
+            
+            <div class="form-group">
+            <label for="orderDate">Customer</label>
+            <select name="selectCustomer" class="custom-select" id="inputGroupSelect02">
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from customers";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'>" .$row["FirstName"]. " " .$row["LastName"]."</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
+                        </div>
+                        <div class="form-group">
+            <label for="orderDate">Employee</label>
+            <select name="selectEmployee" class="custom-select" id="inputGroupSelect02">
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from employees";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'>" .$row["FirstName"]. " " .$row["LastName"]."</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
+                        </div>
+                        <div class="form-group">
+            <label for="orderDate">Products</label>
+            <select name="products[]" class="custom-select" id="inputGroupSelect02" multiple>
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from products where Quantity > 0;";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'>" .$row["Name"]. " $" .$row["Price"]."</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
+                        </div>
+            
             </div>
             <div class="form-group">
               <label for="amount">Order Total</label>

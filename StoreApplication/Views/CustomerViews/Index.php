@@ -37,7 +37,7 @@
 
             <li class="nav-item"><a class="nav-link" href="../EmployeeViews/Index.php" style="color:#fff">Employees</a></li>
 
-            <li class="nav-item"><a class="nav-link" href="CustomerViews/Index.php" style="color:#fff">Customers</a></li>
+            <li class="nav-item"><a class="nav-link" href="Index.php" style="color:#fff">Customers</a></li>
 
         </ul>
         </div>
