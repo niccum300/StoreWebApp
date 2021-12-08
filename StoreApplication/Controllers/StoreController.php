@@ -48,7 +48,7 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
-            header("refresh:2; url = ../Views/StoreViews/index.php");
+            header("refresh:1; url = ../Views/StoreViews/index.php");
             
             mysqli_close($conn);
     }

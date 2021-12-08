@@ -43,7 +43,7 @@
             
         }
 
-        header("refresh:2; url = ../Views/OrderViews/index.php");
+        header("refresh:1; url = ../Views/OrderViews/index.php");
 
         mysqli_close($conn);
         

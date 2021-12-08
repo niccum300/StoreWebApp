@@ -86,15 +86,15 @@
       echo"<form action=\"../../Controllers/EmployeeController.php\" method=\"post\">";
       echo"<div class=\"form-group\">";
       echo"<label for=\"name\">First Name</label>";
-      echo" <input type=\"text\" name=\"firstName\" class=\"form-control\" id=\"nameId\" value=".$row["FirstName"].">";
+      echo" <input type=\"text\" name=\"firstName\" class=\"form-control\" id=\"nameId\" value=\"".$row["FirstName"]."\">";
       echo" </div>";
       echo"<div class=\"form-group\">";
       echo"<label for=\"price\">Last Name</label>";
-      echo"<input type=\"text\" name=\"lastName\" class=\"form-control\" id=\"priceId\" value=".$row["LastName"].">";
+      echo"<input type=\"text\" name=\"lastName\" class=\"form-control\" id=\"priceId\" value=\"".$row["LastName"]."\">";
       echo"</div>";
       echo"<div class=\"form-group\">";
       echo"<label for=\jobTitle\">Job Title</label>";
-      echo"<input type=\"text\" name=\"jobTitle\" class=\"form-control\" id=\"quantityId\" value=".$row["JobTitle"].">";
+      echo"<input type=\"text\" name=\"jobTitle\" class=\"form-control\" id=\"quantityId\" value=\"".$row["JobTitle"]."\">";
       echo"</div>";
       echo"<div class=\"form-group\">";
       echo"<input type=\"hidden\" name=\"Id\" class=\"form-control\" value=".$row["Id"].">";

@@ -16,10 +16,11 @@
         include('../config.php');
         $firstName = $_POST['firstName'];
         $lastName  = $_POST['lastName'];
-        $jobTitle  = $_POST['jobTitle']; 
+        $jobTitle  = $_POST['jobTitle'];
+        $storeId   = $_POST['selectStore'];
+         
     
-        $sql = "INSERT INTO employees(FirstName, LastName, JobTitle)
-        VALUES ('$firstName', '$lastName', '$jobTitle')";
+        $sql = "CALL add_store_employee('$firstName', '$lastName', '$jobTitle', $storeId)";
     
         if (mysqli_query($conn, $sql)) {
                     echo "New record created successfully";
@@ -27,7 +28,7 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
-            header("refresh:2; url = ../Views/EmployeeViews/Index.php");
+            header("refresh:1; url = ../Views/EmployeeViews/Index.php");
             
             mysqli_close($conn);
     }

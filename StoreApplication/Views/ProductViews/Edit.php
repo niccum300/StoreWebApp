@@ -89,7 +89,7 @@
       echo"<form action=\"../../Controllers/ProductController.php\" method=\"post\">";
       echo"<div class=\"form-group\">";
       echo"<label for=\"name\">Product Name</label>";
-      echo" <input type=\"text\" name=\"name\" class=\"form-control\" id=\"nameId\" value=".$row["Name"].">";
+      echo" <input type=\"text\" name=\"name\" class=\"form-control\" id=\"nameId\" value=\"".$row["Name"]."\">";
       echo" </div>";
       echo"<div class=\"form-group\">";
       echo"<label for=\"price\">Product Price</label>";

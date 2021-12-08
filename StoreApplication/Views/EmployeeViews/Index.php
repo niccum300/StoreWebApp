@@ -63,6 +63,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
+                        <th scope="col">Store</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Job Title</th>
@@ -82,9 +83,15 @@
                         
                         if($searchParameter == "")
                         {
-                            $sql = "Select * from employees;";
+                            $sql = "select employees.Id, employees.FirstName, employees.LastName, employees.JobTitle, stores.Name from employees
+                            inner JOIN store_employee on employees.Id  = store_employee.EmployeeId
+                            inner JOIN stores on store_employee.StoreId = stores.Id;";
                         }else{
-                            $sql = "Select * from employees where FirstName = '$searchParameter' OR LastName = '$searchParameter' OR jobtitle = '$searchParameter'; ";
+                            $sql = "select employees.Id, employees.FirstName, employees.LastName, employees.JobTitle, stores.Name from employees
+                            inner JOIN store_employee on employees.Id  = store_employee.EmployeeId
+                            inner JOIN stores on store_employee.StoreId = stores.Id
+                            where employees.FirstName = '$searchParameter' OR employees.LastName = '$searchParameter' OR employees.jobtitle = '$searchParameter'
+                            OR stores.Name = '$searchParameter'; ";
                         }
 
 
@@ -99,6 +106,7 @@
                                     
                                     echo "<tr>";
                                     echo "<td>" .$row["Id"]. "</td>";
+                                    echo "<td>" .$row["Name"]. "</td>";
                                     echo "<td>" .$row["FirstName"]. "</td>";
                                     echo "<td>" .$row["LastName"]. "</td>";
                                     echo "<td>" .$row["JobTitle"]. "</td>";
@@ -131,6 +139,33 @@
             </div>
             <div class="modal-body">
             <form action="../../Controllers/EmployeeController.php" method="post">
+            <div class="form-group">
+            <label for="orderDate">Select Store</label>
+            <select name="selectStore" class="custom-select" id="inputGroupSelect02">
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from stores";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'>" .$row["Name"]. "</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
+                        </div>
             <div class="form-group">
               <label for="firstName">First Name</label>
               <input type="text" name="firstName" class="form-control" id="firstNameId" placeholder="Enter First Name">

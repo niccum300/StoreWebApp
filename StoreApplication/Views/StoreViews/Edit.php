@@ -88,11 +88,11 @@
       echo"<form action=\"../../Controllers/StoreController.php\" method=\"post\">";
       echo"<div class=\"form-group\">";
       echo"<label for=\"name\">Store Name</label>";
-      echo" <input type=\"text\" name=\"name\" class=\"form-control\" id=\"nameId\" value=".$row["Name"].">";
+      echo" <input type=\"text\" name=\"name\" class=\"form-control\" id=\"nameId\" value=\"".$row["Name"]."\">";
       echo" </div>";
       echo"<div class=\"form-group\">";
       echo"<label for=\"price\">Address</label>";
-      echo"<input type=\"text\" name=\"address\" class=\"form-control\" id=\"priceId\" value=".$row["Address"].">";
+      echo"<input type=\"text\" name=\"address\" class=\"form-control\" id=\"priceId\" value=\"".$row["Address"]."\">";
       echo"</div>";
       echo"<div class=\"form-group\">";
       echo"<input type=\"hidden\" name=\"Id\" class=\"form-control\" value=".$row["Id"].">";

@@ -27,7 +27,7 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
-            header("refresh:2; url = ../Views/CustomerViews/Index.php");
+            header("refresh:1; url = ../Views/CustomerViews/Index.php");
             
             mysqli_close($conn);
     }

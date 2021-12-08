@@ -1,3 +1,5 @@
+create database Store;
+
 create table Stores(
 	Id int NOT NULL AUTO_INCREMENT,
     Name VARCHAR(50),
@@ -110,6 +112,31 @@ BEGIN
 END$$
 DELIMITER ;
 
+-- add employee and store_employee
+DELIMITER $$
+create PROCEDURE add_store_employee(
+	IN firstName VARCHAR(50),
+    IN lastName VARCHAR(50),
+    IN jobTitle VARCHAR(50),
+    IN storeId int
+)
+BEGIN
+	DECLARE empId INT DEFAULT 0;
+    
+    INSERT INTO employees(FirstName, LastName, JobTitle)
+        VALUES (firstName, lastName, jobTitle);
+    
+    select Max(Id)
+    into empId
+    from employees;
+    
+    insert into store_employee
+    VALUES(storeId, empId);
+    
+    
+END$$
+DELIMITER ;
+
 -- select order details
 select DISTINCT orders.OrderDate, orders.Amount, customers.FirstName, customers.LastName, employees.FirstName AS EmpFirstName, employees.LastName As EmpLastName, products.Name
 from orders inner join customer_order ON orders.Id = customer_order.OrderId
@@ -117,5 +144,9 @@ inner join customers on customers.Id = customer_order.CustomerId
 inner join employee_order ON orders.Id = employee_order.OrderId
 INNER JOIN employees ON employee_order.EmployeeId = employees.Id
 INNER join order_product on order_product.OrderId = orders.Id
-inner JOIN products on order_product.ProductId = products.Id
-where orders.Id = 18;
+inner JOIN products on order_product.ProductId = products.Id;
+
+-- select employees
+select employees.Id, employees.FirstName, employees.LastName, employees.JobTitle, stores.Name from employees
+inner JOIN store_employee on employees.Id  = store_employee.EmployeeId
+inner JOIN stores on store_employee.StoreId = stores.Id;
