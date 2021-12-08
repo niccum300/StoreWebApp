@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Products</title>
+        <title>Stores</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  
@@ -25,7 +25,7 @@
     <body>
         <div class="container">
             <br>
-            <h3>View Products</h3>
+            <h3>View Stores</h3>
             <form action="<?php echo $_SERVER['PHP_SELF'];?>" method = "post">
                 <div class="form-group row" style="margin-right: 0px; margin-left: 0px">
                     <label for="searchParameter" class="col-sm-2 col-form-label">Find</label>
@@ -45,8 +45,7 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Price $</th>
-                        <th scope="col">Stock</th>
+                        <th scope="col">Address</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,9 +62,9 @@
                         
                         if($searchParameter == "")
                         {
-                            $sql = "Select * from products;";
+                            $sql = "Select * from stores;";
                         }else{
-                            $sql = "Select * from products where name = '$searchParameter' OR price =  '$searchParameter'; ";
+                            $sql = "Select * from stores where name = '$searchParameter' OR Address =  '$searchParameter'; ";
                         }
 
 
@@ -81,8 +80,7 @@
                                     echo "<tr>";
                                     echo "<td>" .$row["Id"]. "</td>";
                                     echo "<td>" .$row["Name"]. "</td>";
-                                    echo "<td>" .$row["Price"]. "</td>";
-                                    echo "<td>" .$row["Quantity"]. "</td>";
+                                    echo "<td>" .$row["Address"]. "</td>";
                                     echo "</tr>";
                                     
 
@@ -111,28 +109,20 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="../../Controllers/ProductController.php" method="post">
-                <div class="form-group">
-                <label for="name">Product Name</label>
-                <input type="text" name="name" class="form-control" id="nameId" placeholder="Enter Product Name">
-                </div>
-                <div class="form-group">
-                <label for="price">Product Price</label>
-                <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
-                <input type="text" name="price" class="form-control" id="priceId" placeholder="0.00">
-                </div>
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantity</label>
-                    <input type="number" name="quantity" class="form-control" id="quantityId" placeholder="0">
-                </div>
-                <div class="form-group">
-                <input type="hidden" name="controllerMethod" class="form-control" id="controller" value="create">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </form>
+                <form action="../../Controllers/StoreController.php" method="post">
+            <div class="form-group">
+              <label for="storeName">Store Name</label>
+              <input type="text" name="storeName" class="form-control" id="storeNameId" placeholder="Enter Store Name">
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" name="address" class="form-control" id="addressId" placeholder="Enter Address">
+            </div>
+            <div class="form-group">
+              <input type="hidden" name="controllerMethod" class="form-control" id="controller" value="create">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
             </div>
             </div>
         </div>
