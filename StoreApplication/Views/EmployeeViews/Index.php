@@ -23,6 +23,25 @@
         }
     </style>
     <body>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../index.html">Store Database</a>
+        </div>
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="../StoreViews/Index.php" style="color:#fff">Stores</a></li>
+            
+            <li class="nav-item"><a class="nav-link" href="../ProductViews/Index.php" style="color:#fff">Products</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="../OrderViews/Index.php" style="color:#fff">Orders</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="EmployeeViews/Index.php" style="color:#fff">Employees</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="../CustomerViews/Index.php" style="color:#fff">Customers</a></li>
+
+        </ul>
+        </div>
+    </nav>
         <div class="container">
             <br>
             <h3>View Employees</h3>
