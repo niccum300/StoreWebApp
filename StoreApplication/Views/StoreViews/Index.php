@@ -23,7 +23,7 @@
         }
     </style>
     <body>
-    <nav class="navbar navbar-dark bg-primary">
+    <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="../index.html">Store Database</a>
@@ -122,7 +122,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Store</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>

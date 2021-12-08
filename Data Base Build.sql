@@ -103,6 +103,9 @@ BEGIN
     insert into order_product
     VALUES(orderId, productId);
     
+    UPDATE products  
+    set products.Quantity = products.Quantity-1
+    where products.Id = productId;
     
 END$$
 DELIMITER ;
