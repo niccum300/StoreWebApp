@@ -29,13 +29,36 @@
       <h3>Edit Order</h3>
       <form action="<?php echo $_SERVER['PHP_SELF'];?>" method = "post">
                 <div class="form-group row" style="margin-right: 0px; margin-left: 0px">
-                    <label for="searchParameter" class="col-sm-2 col-form-label">Enter Order Id</label>
+                    <label for="searchParameter" class="col-sm-2 col-form-label">Select Order</label>
                     <div class="col-sm-4">
-                        <input type="text" id="searchParameter" class="form-control" name = "searchParameter">
+                    <select name="selectOrder" class="custom-select" id="inputGroupSelect02">
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from orders";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'> Order Id:" .$row["Id"]. "</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
                     </div>
                 
                     <div class="col-md">
-                    <button type="submit" class="btn btn-primary" name="submit">Search Database</button>
+                    <button type="submit" class="btn btn-primary" name="submit">Edit</button>
                     </div> 
                 </div>
             </form>
@@ -44,12 +67,11 @@
                         include('../../config.php');
                         
                         $sql = "";
-                        $searchParameter = "";
 
                         if(isset($_POST['submit']))
                         {
-                            $searchParameter = $_POST['searchParameter'];
-                            $sql = "Select * from orders where Id = '$searchParameter'; ";
+                            $order = $_POST['selectOrder'];
+                            $sql = "Select * from orders where Id = '$order'; ";
                         
 
 

@@ -31,11 +31,34 @@
                 <div class="form-group row" style="margin-right: 0px; margin-left: 0px">
                     <label for="searchParameter" class="col-sm-2 col-form-label">Enter Store Id</label>
                     <div class="col-sm-4">
-                        <input type="text" id="searchParameter" class="form-control" name = "searchParameter">
+                    <select name="selectStore" class="custom-select" id="inputGroupSelect02">
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from stores";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'> Id:" .$row["Id"]. " " .$row["Name"]."</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
                     </div>
                 
                     <div class="col-md">
-                    <button type="submit" class="btn btn-primary" name="submit">Search Database</button>
+                    <button type="submit" class="btn btn-primary" name="submit">Select</button>
                     </div> 
                 </div>
             </form>
@@ -48,8 +71,8 @@
 
                         if(isset($_POST['submit']))
                         {
-                            $searchParameter = $_POST['searchParameter'];
-                            $sql = "Select * from stores where Id = '$searchParameter'; ";
+                            $store = $_POST['selectStore'];
+                            $sql = "Select * from stores where Id = '$store'; ";
                         
 
 

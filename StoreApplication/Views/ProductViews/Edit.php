@@ -28,14 +28,38 @@
       <div class="container">
       <h3>Edit Product</h3>
       <form action="<?php echo $_SERVER['PHP_SELF'];?>" method = "post">
+      
                 <div class="form-group row" style="margin-right: 0px; margin-left: 0px">
-                    <label for="searchParameter" class="col-sm-2 col-form-label">Enter Product Id</label>
+                    <label for="searchParameter" class="col-sm-2 col-form-label">Select Product</label>
                     <div class="col-sm-4">
-                        <input type="text" id="searchParameter" class="form-control" name = "searchParameter">
+            <select name="selectProduct" class="custom-select" id="inputGroupSelect02">
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from products";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'> Id:" .$row["Id"]. " " .$row["Name"]."</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
                     </div>
                 
                     <div class="col-md">
-                    <button type="submit" class="btn btn-primary" name="submit">Search Database</button>
+                    <button type="submit" class="btn btn-primary" name="submit">Select</button>
                     </div> 
                 </div>
             </form>
@@ -48,8 +72,8 @@
 
                         if(isset($_POST['submit']))
                         {
-                            $searchParameter = $_POST['searchParameter'];
-                            $sql = "Select * from products where Id = '$searchParameter'; ";
+                            $product = $_POST['selectProduct'];
+                            $sql = "Select * from products where Id = '$product'; ";
                         
 
 
