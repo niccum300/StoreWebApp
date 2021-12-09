@@ -28,7 +28,7 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
-            header("refresh:1; url = ../Views/EmployeeViews/Index.php");
+            header("refresh:0; url = ../Views/EmployeeViews/Index.php");
             
             mysqli_close($conn);
     }
@@ -51,7 +51,7 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
-            header("refresh:2; url = ../Views/EmployeeViews/index.php");
+            header("refresh:0; url = ../Views/EmployeeViews/index.php");
             
             mysqli_close($conn);
     }

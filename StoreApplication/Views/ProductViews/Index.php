@@ -63,6 +63,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
+                        <th scope="col">Store</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price $</th>
                         <th scope="col">Stock</th>
@@ -82,9 +83,14 @@
                         
                         if($searchParameter == "")
                         {
-                            $sql = "Select * from products;";
+                            $sql = "select products.Id, products.Name, products.Price, products.Quantity, stores.Name As StoreName from products
+                            inner JOIN store_product on products.Id = store_product.ProductId
+                            inner JOIN stores on store_product.StoreId = stores.Id;";
                         }else{
-                            $sql = "Select * from products where name = '$searchParameter' OR price =  '$searchParameter'; ";
+                            $sql = "select products.Id, products.Name, products.Price, products.Quantity, stores.Name As StoreName from products
+                            inner JOIN store_product on products.Id = store_product.ProductId
+                            inner JOIN stores on store_product.StoreId = stores.Id where products.name = '$searchParameter' OR products.price =  '$searchParameter'
+                            OR stores.Name = '$searchParameter'; ";
                         }
 
 
@@ -99,8 +105,9 @@
                                     
                                     echo "<tr>";
                                     echo "<td>" .$row["Id"]. "</td>";
+                                    echo "<td>" .$row["StoreName"]. "</td>";
                                     echo "<td>" .$row["Name"]. "</td>";
-                                    echo "<td>" .$row["Price"]. "</td>";
+                                    echo "<td>$" .$row["Price"]. "</td>";
                                     echo "<td>" .$row["Quantity"]. "</td>";
                                     echo "</tr>";
                                     
@@ -131,6 +138,33 @@
             </div>
             <div class="modal-body">
                 <form action="../../Controllers/ProductController.php" method="post">
+                <div class="form-group">
+            <label for="orderDate">Store Name</label>
+            <select name="selectStore" class="custom-select" id="inputGroupSelect02">
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from stores";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'>" .$row["Name"]. "</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
+                        </div>
                 <div class="form-group">
                 <label for="name">Product Name</label>
                 <input type="text" name="name" class="form-control" id="nameId" placeholder="Enter Product Name">

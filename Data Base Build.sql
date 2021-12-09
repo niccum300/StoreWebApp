@@ -88,7 +88,7 @@ CREATE TABLE Employee_Order(
 
 -- addOrder Procedure
 DELIMITER $$
-CREATE  PROCEDURE `addOrder`(IN `orderDate` DATE, IN `amount` DECIMAL(10,2), IN `customerId` INT, IN `employeeId` INT, IN `productId` INT)
+CREATE  PROCEDURE `addOrder`(IN `orderDate` DATE, IN `amount` DECIMAL(10,2), IN `customerId` INT, IN `employeeId` INT, IN `productId` INT, IN `storeId` INT)
 BEGIN
 	DECLARE orderId INT DEFAULT 0;
     
@@ -104,6 +104,9 @@ BEGIN
     
     insert into order_product
     VALUES(orderId, productId);
+    
+    insert into store_order
+    VALUES(storeId, orderId);
     
     UPDATE products  
     set products.Quantity = products.Quantity-1
@@ -137,6 +140,31 @@ BEGIN
 END$$
 DELIMITER ;
 
+-- add product and store_product
+DELIMITER $$
+create PROCEDURE add_store_product(
+	IN name VARCHAR(50),
+    IN price DECIMAL(10,2),
+    IN quantity INT,
+    IN storeId int
+)
+BEGIN
+	DECLARE pId INT DEFAULT 0;
+    
+    INSERT INTO products(Name, Price, Quantity)
+        VALUES (name, price, quantity);
+    
+    select Max(Id)
+    into pId
+    from products;
+    
+    insert into store_product
+    VALUES(storeId, pId);
+    
+    
+END$$
+DELIMITER ;
+
 -- select order details
 select DISTINCT orders.OrderDate, orders.Amount, customers.FirstName, customers.LastName, employees.FirstName AS EmpFirstName, employees.LastName As EmpLastName, products.Name
 from orders inner join customer_order ON orders.Id = customer_order.OrderId
@@ -150,3 +178,8 @@ inner JOIN products on order_product.ProductId = products.Id;
 select employees.Id, employees.FirstName, employees.LastName, employees.JobTitle, stores.Name from employees
 inner JOIN store_employee on employees.Id  = store_employee.EmployeeId
 inner JOIN stores on store_employee.StoreId = stores.Id;
+
+-- select products
+select products.Id, products.Name, products.Price, products.Quantity, stores.Name As StoreName from products
+inner JOIN store_product on products.Id = store_product.ProductId
+inner JOIN stores on store_product.StoreId = stores.Id;

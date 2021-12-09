@@ -55,7 +55,6 @@
                     <div class="col-md">
                     <button type="submit" class="btn btn-primary" name="submit">Search Database</button>
                     <button type="button" class="btn btn-success" name="create" data-toggle="modal" data-target="#createModal">Create</button>
-                    <a href="Edit.php"><button type="button" class="btn btn-success" name="create">Edit</button></a>
                     </div> 
                 </div>
             </form>
@@ -116,7 +115,7 @@
                                     echo "<tr>";
                                     echo "<td>" .$row["Id"]. "</td>";
                                     echo "<td>" .$row["OrderDate"]. "</td>";
-                                    echo "<td>" .$row["Amount"]. "</td>";
+                                    echo "<td>$" .$row["Amount"]. "</td>";
                                     echo "<td>" .$row["FirstName"]. " ".$row["LastName"]. "</td>";
                                     echo "<td>" .$row["EmpFirstName"]. " ".$row["EmpLastName"]. "</td>";
                                     echo "<td>" .$row["Name"]. "</td>";
@@ -153,7 +152,33 @@
               <label for="orderDate">Order Date</label>
               <input type="date" name="orderDate" class="form-control" id="orderDateId">
             </div>
-            
+            <div class="form-group">
+            <label for="orderDate">Store Name</label>
+            <select name="selectStore" class="custom-select" id="inputGroupSelect02">
+            <?php
+                        include('../../config.php');
+                        
+                        $sql = "Select * from stores";
+
+                        echo "$sql";
+                        $result = mysqli_query($conn,$sql);
+
+                        
+
+                            if(mysqli_num_rows($result) > 0)
+                            {
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+
+                                    echo "<option value='". $row["Id"] ."'>" .$row["Name"]. "</option>";
+                                }
+                                
+                            }else{
+                                echo "No results found";
+                            }
+                        ?>
+            </select>
+                        </div>
             <div class="form-group">
             <label for="orderDate">Customer</label>
             <select name="selectCustomer" class="custom-select" id="inputGroupSelect02">

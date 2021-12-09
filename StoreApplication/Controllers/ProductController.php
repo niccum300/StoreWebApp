@@ -17,9 +17,9 @@
         $name       = $_POST['name'];
         $price      = $_POST['price'];
         $quantity   = $_POST['quantity']; 
+        $storeId    = $_POST['selectStore'];
     
-        $sql = "INSERT INTO products(Name, Price, Quantity)
-        VALUES ('$name', '$price', '$quantity')";
+        $sql = "CALL add_store_product('$name', $price, $quantity, $storeId)";
     
         if (mysqli_query($conn, $sql)) {
                     echo "New record created successfully";
@@ -27,7 +27,7 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
-            header("refresh:2; url = ../Views/ProductViews/index.php");
+            header("refresh:0; url = ../Views/ProductViews/index.php");
             
             mysqli_close($conn);
     }
@@ -50,7 +50,7 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
-            header("refresh:1; url = ../Views/ProductViews/index.php");
+            header("refresh:0; url = ../Views/ProductViews/index.php");
             
             mysqli_close($conn);
     }

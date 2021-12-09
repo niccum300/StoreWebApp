@@ -18,6 +18,7 @@
         $amount    = $_POST['amount'];
         $customerId = $_POST['selectCustomer'];
         $employeeId = $_POST['selectEmployee'];
+        $storeId    = $_POST['selectStore'];
 
         $sql ="Insert INTO orders(OrderDate, Amount)
         values('$orderDate', $amount);";
@@ -30,7 +31,7 @@
         
         foreach($_POST['products'] as $pId)
         {
-                $sql = "CALL addOrder('$orderDate', $amount, $customerId, $employeeId, $pId);";
+                $sql = "CALL addOrder('$orderDate', $amount, $customerId, $employeeId, $pId, $storeId);";
 
                 echo "$sql";
     
@@ -43,7 +44,7 @@
             
         }
 
-        header("refresh:1; url = ../Views/OrderViews/index.php");
+        header("refresh:0; url = ../Views/OrderViews/index.php");
 
         mysqli_close($conn);
         
@@ -67,7 +68,7 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
-            header("refresh:2; url = ../Views/OrderViews/index.php");
+            header("refresh:0; url = ../Views/OrderViews/index.php");
             
             mysqli_close($conn);
     }
